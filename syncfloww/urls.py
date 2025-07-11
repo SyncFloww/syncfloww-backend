@@ -10,9 +10,9 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.contrib.staticfiles.storage import staticfiles_storage
 
-admin.site.site_header = 'SyncFlow'
-admin.site.site_title = 'SyncFlow Admin Panel'
-admin.site.index_title = 'SyncFlow Administration'
+admin.site.site_header = 'SyncFloww'
+admin.site.site_title = 'SyncFloww Admin Panel'
+admin.site.index_title = 'SyncFloww Administration'
 
 
 
