@@ -1,0 +1,86 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="{% static 'core/css/signup.css' %}" />
+    <link rel="stylesheet" href="{% static 'accounts/css/forms.css' %}" />
+    <title>
+        {% block head_title %}
+        {% endblock head_title %} | SyncFlow
+    </title>
+
+    <style>
+        p.check-box{
+            width: 100%;
+            flex-direction; row-reverse;
+        }
+
+        p.check-box input{
+            width 1rem !important;
+            height: 1rem !important;
+            padding: 3px !important;
+            margin: 0 1rem !important;
+            border: 2px solid black;
+        }
+
+        p.check-box label{
+            width: fit-content;
+        }
+
+        .logo{
+            height: 7 dvh;
+            width: 7 dvw;
+            margin: 1rem
+        }
+
+        .logo img{
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            bo
+        }
+    </style>
+    
+    {% block extra_head %}
+    {% endblock extra_head %}
+  </head>
+  <body>
+
+    <div class="container">
+
+        <div class="logo">
+            <img src="{% static 'core/images/logo-white.png' %}" alt="Syncflow Logo">
+        </div>
+        
+        <section class="form-container">
+            {% csrf_token %}
+
+            {% block body %}
+                {% block content %}
+                {% endblock content %}
+            {% endblock body %}
+            {% block extra_body %}
+            {% endblock extra_body %}
+        </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Get all <p> tags on the page
+                const paragraphs = document.querySelectorAll("p");
+
+                paragraphs.forEach(function (p) {
+                    // Check if the <p> contains an input[type=checkbox] or input[type=radio]
+                    const checkboxOrRadio = p.querySelector("input[type='checkbox'], input[type='radio']");
+                    if (checkboxOrRadio) {
+                        // Add a class to the <p> tag
+                        p.classList.add("check-box");
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+# Django
+Django
+django-environ
+psycopg2-binary
+
+# REST Framework
+djangorestframework
+drf-spectacular
+
+# Authentication
+django-allauth
+dj-rest-auth
+djangorestframework-simplejwt
+
+# Database
+django-postgres-extra
+
+# CORS
+django-cors-headers
+
+# Task queue
+celery
+redis
+django-celery-results
+django-celery-beat
+
+# Email
+django-anymail
+
+# Development
+black
+flake8
+isort
+
+# Production
+gunicorn
+whitenoise
+huggingface-hub==0.19.4
