@@ -17,7 +17,10 @@ from django.http import HttpResponseBadRequest
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.views import View
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f3f460e4d9735213c1a8a8cc1b9cec37ca680d72
 User = get_user_model()
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
@@ -71,6 +74,7 @@ class CustomRegisterView(RegisterView):
                 return Response({"error": "A user with this email already exists."}, status=status.HTTP_400_BAD_REQUEST)
             return Response({"error": "Registration failed."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+<<<<<<< HEAD
 class CustomVerifyEmailView(VerifyEmailView):
     def get(self, request, *args, **kwargs): # type: ignore[override]
         key = kwargs.get('key')
@@ -91,6 +95,70 @@ class CustomVerifyEmailView(VerifyEmailView):
             return response
         except Exception as e:
             return HttpResponseBadRequest(f"Email confirmation failed: {str(e)}")
+=======
+# class CustomVerifyEmailView(VerifyEmailView):
+#     def get(self, request, *args, **kwargs): # type: ignore[override]
+#         key = kwargs.get('key')
+#         if not key:
+#             return HttpResponseBadRequest("Missing confirmation key.")
+#         try:
+#             confirmation = EmailConfirmationHMAC.from_key(key)
+#             if not confirmation:
+#                 return HttpResponseBadRequest("Invalid confirmation key.")
+#             confirmation.confirm(request)
+#             user = confirmation.email_address.user
+#             # Generate JWT tokens
+#             refresh = RefreshToken.for_user(user)
+#             return render(request, 'account/email_verified.html', {'user':request.user})
+#             # response = redirect('/api/accounts/auth/user/')
+#             # Set tokens in cookies
+#             response.set_cookie('syncflow-auth', str(refresh.access_token), httponly=False)
+#             response.set_cookie('syncflow-refresh-token', str(refresh), httponly=False)
+#             return response
+#         except Exception as e:
+#             return HttpResponseBadRequest(f"Email confirmation failed: {str(e)}")
+#             return render(request, 'account/email_verification_failed.html')
+
+
+class CustomVerifyEmailView(VerifyEmailView):
+    def get(self, request, *args, **kwargs):  # type: ignore[override]
+        key = kwargs.get('key')
+        if not key:
+            return render(request, 'account/email_verification_failed.html', {
+                'message': "Missing confirmation key."
+            })
+
+        try:
+            confirmation = EmailConfirmationHMAC.from_key(key)
+            if not confirmation:
+                return render(request, 'account/email_verification_failed.html', {
+                    'message': "Invalid or expired confirmation key."
+                })
+
+            confirmation.confirm(request)
+            user = confirmation.email_address.user
+
+            # Generate JWT tokens
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+
+            # Render success page
+            response = render(request, 'account/email_verified.html', {
+                'message': "Your email has been successfully verified.",
+                'user': user,
+            })
+
+            # Set tokens in cookies
+            response.set_cookie('syncflow-auth', access_token, httponly=False)
+            response.set_cookie('syncflow-refresh-token', str(refresh), httponly=False)
+
+            return response
+
+        except Exception as e:
+            return render(request, 'account/email_verification_failed.html', {
+                'message': f"Email verification failed: {str(e)}"
+            })
+>>>>>>> f3f460e4d9735213c1a8a8cc1b9cec37ca680d72
 
 
 class AccountEmailVerificationSentView(APIView):

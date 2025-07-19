@@ -10,7 +10,11 @@ drf-spectacular
 # Authentication
 django-allauth
 dj-rest-auth
+<<<<<<< HEAD
 django-rest-framework-simplejwt
+=======
+djangorestframework-simplejwt
+>>>>>>> f3f460e4d9735213c1a8a8cc1b9cec37ca680d72
 
 # Database
 django-postgres-extra
@@ -35,3 +39,7 @@ isort
 # Production
 gunicorn
 whitenoise
+<<<<<<< HEAD
+=======
+huggingface-hub==0.19.4
+>>>>>>> f3f460e4d9735213c1a8a8cc1b9cec37ca680d72
